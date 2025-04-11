@@ -1,7 +1,6 @@
 import { useState  } from 'react';
 import BoardItem from './BoardItem';
-import AddBoardItemButton from './buttons/AddBoardItemButton';
-
+import Button from './buttons/Button';
 
 export default function Board({id = 'null'}){
     const [items, setItems] = useState([]);
@@ -10,6 +9,7 @@ export default function Board({id = 'null'}){
         const novoId = Date.now();
         setItems([...items, novoId])
     }
+
     const removeBoardItem = (idRemover) => {
         setItems(items.filter(id => id !== idRemover));
     };
@@ -17,7 +17,7 @@ export default function Board({id = 'null'}){
     return (
         <div>
             <p>Escolha as moedas a serem convertidas</p>
-            <AddBoardItemButton title="Adicionar Conversor" onclick={addBoardItem} />
+            <Button title="Adicionar Conversor" onclick={addBoardItem} />
             
             <div>
                {items.map(id => (
