@@ -1,5 +1,6 @@
 import { useState  } from 'react';
 import BoardItem from './BoardItem';
+import Link from './buttons/Link';
 import Button from './buttons/Button';
 
 export default function Board({id = 'null'}){
@@ -16,12 +17,11 @@ export default function Board({id = 'null'}){
 
     return (
         <div>
-            <p>Escolha as moedas a serem convertidas</p>
             <Button title="Adicionar Conversor" onclick={addBoardItem} />
             
-            <div>
+            <div className='board-items'  style={{ paddingTop: '1em' }}>
                {items.map(id => (
-                    <BoardItem key={id} id={id} onRemove={removeBoardItem} />
+                    <BoardItem key={id} id={id} onFunc={removeBoardItem} />
                 ))}
             </div>
         </div>
