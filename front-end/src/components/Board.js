@@ -1,6 +1,5 @@
 import { useState  } from 'react';
 import BoardItem from './BoardItem';
-import Link from './buttons/Link';
 import Button from './buttons/Button';
 
 export default function Board({id = 'null'}){

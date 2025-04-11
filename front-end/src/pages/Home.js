@@ -2,12 +2,14 @@ import DefaultLayout from '../layouts/default';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Board from '../components/Board';
+import getBackEndURL from '../config'
 
 export default function Home() {
     const [message, setMensagem] = useState('');
-    
+
     useEffect(() => {
-        axios.get('http://localhost:3000/')
+        const url = getBackEndURL();
+        axios.get(url)
                 .then(res => {
                     console.log('res.data:', res.data);
                     setMensagem(res.data.message);
@@ -20,7 +22,7 @@ export default function Home() {
     
     return (
         <DefaultLayout>
-             <div>
+            <div>
                 <h2 className="text-2xl font-bold text-red-600">{message}</h2>
                 <Board id="Boardes" />
             </div>
