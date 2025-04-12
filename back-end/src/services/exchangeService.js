@@ -5,9 +5,8 @@ const axios = require('axios');
   const mainUrl = 'https://api.exchangerate.host';
 
   async function exchangeSymbols() {
-     console.log('KEY: ', EXCHANGE_API_KEY)
-      const url = `${mainUrl}/symbols`;
-      const response = await axios.get(`${url}?acvess_key=${EXCHANGE_API_KEY}/list`);
+      const url = `${mainUrl}/list`;
+      const response = await axios.get(`${url}?access_key=${EXCHANGE_API_KEY}`);
 
       return response.data;
   }
