@@ -5,13 +5,20 @@ const apiExternaController = require('../controllers/apiExternaController')
 
 router.get('/buscar-symbols', apiExternaController.getSymbols)
 
-router.get('/:base/:target', async (req, res) => {
+router.get('/:base/:target/:valor', async (req, res) => {
+    console.log("chegou aqui");
     try {
-        const  {base,target} = req.params;
-        const rate = await getExchangeRate(base, target);
-        res.json({ rate })
-    } catch (error) {
-        res.status(500).json({ "error": "Erro ao buscar conversão."})
+        const  {base,target, valor} = req.params;
+        console.log("Back-end: ", base, target, valor, req.params)
+        const rateData  = await getExchangeRate(base, target, valor);
+        res.json({ rate: rateData  })
+    } catch (err) {
+        res.status(500).json(
+            { 
+                error: "Erro ao buscar conversão.", 
+                message: err.message,
+                stack: err.stack 
+            })
     }
 });
 

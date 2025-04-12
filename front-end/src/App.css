@@ -118,6 +118,12 @@ input, select {
   padding: 0 10px;
 }
 
+
+.board-item-result {
+  font-weight: 700;
+  font-size: 1.3em;
+}
+
 button:hover {
   background-color: #020f1a;
 }
@@ -125,6 +131,7 @@ button:active {
   background-color: #020d18;
   transform: none;       
 }
+
 
     
 @keyframes App-logo-spin {

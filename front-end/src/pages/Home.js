@@ -8,6 +8,7 @@ export default function Home() {
     const [message, setMensagem] = useState('');
 
     useEffect(() => {
+        localStorage.removeItem('currencySymbols');
         const url = getBackEndURL();
         axios.get(url)
                 .then(res => {
