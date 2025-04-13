@@ -11,12 +11,19 @@ Conversor de Moedas em Node.js, Reacts.js e Axios.
     - Suporte: dev.diogo.marostega@gmail.com
 
 3. Startando
+ (raiz do projeto)
  - cd back-end
+ - npm install
  - node index.js
 
- - cd ..
+ Em outro terminal
+ (raiz do projeto)
  - cd front-end
+ - npm install
  - npm start
+ - Confirmar:
+ "Something is already running on port 3000.
+ Would you like to run the app on another port instead? » (Y/n) -> Y"
 
 
 Versões de implementação
