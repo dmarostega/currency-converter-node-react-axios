@@ -1,13 +1,12 @@
 
 
-export default function CardError({message, visible}) {
+export default function CardError({messagem}) {
     return  (
         <div className={
             `error-card
-             ${visible ? 'opacity-100' : 'opacity-0'}
             `}
         >
-            {message}
+            {messagem}
         </div>
     );
 }

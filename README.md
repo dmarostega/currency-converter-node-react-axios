@@ -1,5 +1,7 @@
 Conversor de Moedas em Node.js, Reacts.js e Axios.
 
+Obrigatório: possui API KEY Válida no https://exchangerate.host; (Veja item 2)
+
 1. Baixando
  git clone https://github.com/dmarostega/currency-converter-node-react-axios.git conversor-moeda
 
