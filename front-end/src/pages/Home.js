@@ -6,7 +6,7 @@ import getBackEndURL from '../config'
 import Historico from '../utils/Historico';
 
 export default function Home() {
-    const [message, setMensagem] = useState('');
+    const [messagem, setMensagem] = useState('');
     const [historico, setHistorico] = useState(Historico.listar());
     const [errorMessage, setErrorMessage] = useState('');
     const [showError, setShowError] = useState(false)
@@ -48,7 +48,7 @@ export default function Home() {
     return (
         <DefaultLayout>
             <div>
-                <h2 className="text-2xl font-bold text-red-600">{message}</h2>
+                <h2 className="text-2xl font-bold text-red-600">{messagem}</h2>
                 <Board id="Boardes" onConversao={atualizarHistorico} onError={setErrorMessage} errorMessage={errorMessage}/>
                 <div>
                     {historico.map((item,idx) => {

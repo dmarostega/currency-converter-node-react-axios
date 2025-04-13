@@ -4,25 +4,25 @@ import Button from './buttons/Button';
 import CardError from './CardErro';
 
 export default function Board({onConversao, onError, errorMessage}){
-    const [items, setItems] = useState([]);
+    const [itens, setItens] = useState([]);
  
     const addBoardItem = () => {
         const novoId = Date.now();
-        setItems([...items, novoId])
+        setItens([...itens, novoId])
     }
 
     const removeBoardItem = (idRemover) => {
-        setItems(items.filter(id => id !== idRemover));
+        setItens(itens.filter(id => id !== idRemover));
     };
 
     return (
         <div>
             <Button title="Adicionar Conversor" onclick={addBoardItem} />
             <div>
-               {errorMessage && <CardError message={errorMessage}/>} 
+               {errorMessage && <CardError messagem={errorMessage}/>} 
             </div>
             <div className='board-items'  style={{ paddingTop: '1em' }}>
-               {items.map(id => (
+               {itens.map(id => (
                     <BoardItem key={id} id={id} onFunc={removeBoardItem} onConversao={onConversao} onErro={onError} />
                 ))}
             </div>
