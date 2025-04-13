@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import getBackEndURL from '../config';
 import axios from 'axios';
 import Historico from '../utils/Historico';
+import ErrMensagens from '../utils/ErrMensagens';
 
 export default function BoardItem({id, onFunc, onConversao, onErro}) {
     
@@ -29,19 +30,7 @@ export default function BoardItem({id, onFunc, onConversao, onErro}) {
                     setSymbols(res.data.symbols.currencies)                
                     localStorage.setItem('currencySymbols', JSON.stringify(res.data.symbols.currencies))                
                 }else{
-                    let messagem = '';
-                    switch (res.data.symbols.error.type) {
-                        case 'invalid_access_key':
-                            messagem = `Erro ao buscar os símbolos: chave de API inválida ou limite de requisições excedido.`
-                            break;
-                        case 'usage_limit_reached':
-                            messagem = `Erro ao buscar os símbolos: limite de requisições da API foi atingido.`
-                            break;                            
-                        default:
-                            messagem = `Erro desconhecido ao buscar os símbolos.`
-                            break;
-                    }
-                    onErro?.(`${messagem}`);
+                    onErro?.(`${ErrMensagens(res.data.symbols.error.type, 'Buscar simbolos')}`);
                 }
             })
             .catch(err => {
@@ -60,12 +49,18 @@ export default function BoardItem({id, onFunc, onConversao, onErro}) {
 
         try {
             const url = getBackEndURL();
+            console.log(`${url}api-externa/${moedaDe}/${moedaPara}/${valor}`)
             const res = await axios.get(`${url}api-externa/${moedaDe}/${moedaPara}/${valor}`)
 
-            setResultado(res.data.rate.result);
-            Historico.salvar(Date.now(),moedaDe,moedaPara, valor, res.data.rate.result)
+            console.log(res)
+            if( res.data.rate.result && !res.data.rate.error ){
+                setResultado(res.data.rate.result);
+                Historico.salvar(Date.now(),moedaDe,moedaPara, valor, res.data.rate.result)
+                if (onConversao) onConversao(); // notifica o Home
+            }else{
+                onErro?.(`${ErrMensagens(res.data.rate.error.type, 'realizar conversão')}`);
+            }
 
-            if (onConversao) onConversao(); // notifica o Home
 
         } catch (err) {
             console.error(
