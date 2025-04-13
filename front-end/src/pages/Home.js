@@ -8,9 +8,11 @@ import Historico from '../utils/Historico';
 export default function Home() {
     const [message, setMensagem] = useState('');
     const [historico, setHistorico] = useState(Historico.listar());
+    const [errorMessage, setErrorMessage] = useState('');
+    const [showError, setShowError] = useState(false)
 
     useEffect(() => {
-        localStorage.removeItem('currencySymbols');
+        // localStorage.removeItem('currencySymbols');
         setHistorico(Historico.listar())
         const url = getBackEndURL();
         axios.get(url)
@@ -20,8 +22,20 @@ export default function Home() {
              .catch(err => {
                 console.error('Erro ao buscar mensagem:', err);
                 setMensagem('Erro ao carregar mensagem');
+                setErrorMessage("Erro ao carregar mensagem!")
              });
-    }, []);
+
+             if(errorMessage) {
+                setShowError(true)
+
+                const timerError = setTimeout(()    => {
+                    setShowError(false)
+                    setTimeout(() => setErrorMessage(''),300)
+                }, 5000)
+
+                return () => clearTimeout(timerError)
+             }
+    }, [errorMessage]);
 
     const atualizarHistorico = () => {
         setHistorico(Historico.listar())
@@ -35,9 +49,8 @@ export default function Home() {
         <DefaultLayout>
             <div>
                 <h2 className="text-2xl font-bold text-red-600">{message}</h2>
-                <Board id="Boardes" onConversao={atualizarHistorico}/>
+                <Board id="Boardes" onConversao={atualizarHistorico} onError={setErrorMessage} errorMessage={errorMessage}/>
                 <div>
-                    <p>Histórico</p>
                     {historico.map((item,idx) => {
                         const data = new Date(item.data)
                         return <div key={'historyc_'+idx} className='historic-item'>

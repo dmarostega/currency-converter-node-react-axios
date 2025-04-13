@@ -3,7 +3,7 @@ import getBackEndURL from '../config';
 import axios from 'axios';
 import Historico from '../utils/Historico';
 
-export default function BoardItem({id, onFunc, onConversao}) {
+export default function BoardItem({id, onFunc, onConversao, onErro}) {
     
     const [symbols, setSymbols] = useState([]);
     const [moedaDe, setMoedaDe] = useState('');
@@ -16,27 +16,44 @@ export default function BoardItem({id, onFunc, onConversao}) {
         const localSymbols = localStorage.getItem('currencySymbols');
 
         if(localSymbols) {
+            console.log("Buscando simbolos do localstorage")
             setSymbols(JSON.parse(localSymbols));
         } else { 
+            console.log("Requisição para buscar simbolos.")
+
             const url = getBackEndURL();
 
             axios.get(`${url}api-externa/buscar-symbols`)
             .then(res => {
-                if(res.data.symbols) {
+                if(!res.data.symbols.error) {
                     setSymbols(res.data.symbols.currencies)                
                     localStorage.setItem('currencySymbols', JSON.stringify(res.data.symbols.currencies))                
+                }else{
+                    let message = '';
+                    switch (res.data.symbols.error.type) {
+                        case 'invalid_access_key':
+                            message = `Falha na busca por simbolos. API KEY inválida ou passou do limite de requisições.`
+                            break;
+                    
+                        default:
+                            message = `Falha desconhecida na requisição.`
+                            break;
+                    }
+                    onErro?.(`${message}`);
                 }
             })
             .catch(err => {
                 console.error('Erro ao buscar simbolos:', err);
+                onErro?.(`${err.message}`);
             });
         }
 
-    }, [])
+    }, [onErro])
 
     const buscarConversao = async (params) => {
         if(!moedaDe | !moedaPara | !valor) {
-            alert("Preencha todos os campos")
+            onErro?.("Preencha todos os campos");
+            return;  
         }
 
         try {
@@ -52,20 +69,17 @@ export default function BoardItem({id, onFunc, onConversao}) {
             console.error(
                 { 
                     error: "Erro ao buscar conversão.", 
-                    message: err.message,
-                    stack: err.stack 
-                })            
+                    err
+                }) 
+            onErro?.(`${err.message}`);             
         }        
     }
 
-    if(!symbols) {
-        return (<p>Não foi possível carregar moedas</p>)
-    }
     return (
         <div id={id} className="board-item" >
             <div>
                 <label>Valor</label>
-                <input  id={`result_${id}`}
+                <input type="number" id={`result_${id}`}
                     style={{maxWidth: '50px'}}
                     value={valor}
                     onChange={(e) => setValor(e.target.value)}

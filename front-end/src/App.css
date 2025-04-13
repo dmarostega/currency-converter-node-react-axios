@@ -152,6 +152,16 @@ button:active {
   background-color: #020d18;
   transform: none;       
 }
+
+.error-card {
+  background-color: rgb(168, 39, 67);
+  padding: .5em;
+  margin: .3em;
+  border-radius: 5px;
+  color: white;
+  font-size: .8em;
+  text-decoration: double;
+}
     
 @keyframes App-logo-spin {
   from {
