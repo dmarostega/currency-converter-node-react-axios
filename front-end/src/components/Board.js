@@ -9,10 +9,6 @@ export default function Board({onConversao, onError, errorMessage}){
     const addBoardItem = () => {
         const novoId = Date.now();
         setItems([...items, novoId])
-
-        if(onError) {            
-            setTimeout(() => removeBoardItem(novoId),15000)
-        }
     }
 
     const removeBoardItem = (idRemover) => {
