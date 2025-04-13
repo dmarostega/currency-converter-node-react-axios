@@ -50,17 +50,17 @@ export default function Home() {
             <div>
                 <h2 className="text-2xl font-bold text-red-600">{messagem}</h2>
                 <Board id="Boardes" onConversao={atualizarHistorico} onError={setErrorMessage} errorMessage={errorMessage}/>
-                <div>
+                <div className='historic'>
                     {historico.map((item,idx) => {
                         const data = new Date(item.data)
-                        return <div key={'historyc_'+idx} className='historic-item'>
-                                    <div>
+                        return <div key={'historic_'+idx} className='historic-item' >
+                                    <div style={{fontStyle: 'italic'}}>
                                         {data.toLocaleDateString()}
                                     </div>
-                                    <div>
-                                        {Number(item.valor).toFixed(2)} <span style={{padding: "0 .5em 0 0"}}>{item.moedaDe}</span>
+                                    <div style={{fontSize: '1.5em'}}>
+                                        {item.valor} <span style={{padding: "0 .5em 0 0", fontWeight: 'bold'}}>{item.moedaDe}</span>
 
-                                        é {Number(item.resultado).toFixed(2)}  <span>{item.moedaPara}</span>
+                                        = {item.resultado}<span  style={{ fontWeight: 'bold'}}> {item.moedaPara}</span>
                                     </div>
                                 <div>
                                 {/* <button  className="App-button App-button-remove btn-red-color" 

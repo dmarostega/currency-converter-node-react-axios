@@ -123,21 +123,20 @@ input, select {
   font-size: 1.3em;
 }
 
-.historic-item {
-  border: 1px solid rgb(17, 17, 20);
+.historic {
   border-radius: 4px;
-  margin-bottom: .5em;
-  font-size: .7em;
+  margin-bottom: 1em;
+}
+
+.historic-item {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border: 1px  solid #424324;
+  font-size: .6em;
 }
 
 .historic-item > div:first-child {
-  border-bottom: 1px  solid #424324;
   text-align: left;
-}
-
-.historic-item > div:last-child {
-  display: inline-block;
-  text-align: center;
 }
 
 .historic-item > div:last-child span{
