@@ -32,11 +32,13 @@ export default function BoardItem({id, onFunc, onConversao, onErro}) {
                     let message = '';
                     switch (res.data.symbols.error.type) {
                         case 'invalid_access_key':
-                            message = `Falha na busca por simbolos. API KEY inválida ou passou do limite de requisições.`
+                            message = `Erro ao buscar os símbolos: chave de API inválida ou limite de requisições excedido.`
                             break;
-                    
+                        case 'usage_limit_reached':
+                            message = `Erro ao buscar os símbolos: limite de requisições da API foi atingido.`
+                            break;                            
                         default:
-                            message = `Falha desconhecida na requisição.`
+                            message = `Erro desconhecido ao buscar os símbolos.`
                             break;
                     }
                     onErro?.(`${message}`);
