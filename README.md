@@ -6,7 +6,7 @@ Obrigatório: possuir API KEY Válida no https://exchangerate.host; (Veja item 2
  `git clone https://github.com/dmarostega/currency-converter-node-react-axios.git conversor-moeda`
 
 2. Configurar EXCHANGE_API_KEY em: 
-    - back-end\src\config\index.js
+    - back-end\src\config\index.js 
     - API KEY deve ser gerada em: https://exchangerate.host
     - Atenção: plano Free permite apenas 100 requisições por mês
     
@@ -17,6 +17,8 @@ Obrigatório: possuir API KEY Válida no https://exchangerate.host; (Veja item 2
  - cd back-end
  - npm install
  - node index.js
+
+ Atenção se adicionar API KEY após servidor estar ativo, deve-se reiniciar-lo
 
  Em outro terminal
  (raiz do projeto)
