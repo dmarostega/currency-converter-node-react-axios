@@ -22,6 +22,7 @@ Obrigatório: possuir API KEY Válida no https://exchangerate.host; (Veja item 2
  (raiz do projeto)
  - cd front-end
  - npm install
+ - npm run build
  - npm start
  - Confirmar:
  "Something is already running on port 3000.
