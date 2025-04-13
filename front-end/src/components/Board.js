@@ -2,7 +2,7 @@ import { useState  } from 'react';
 import BoardItem from './BoardItem';
 import Button from './buttons/Button';
 
-export default function Board({id = 'null'}){
+export default function Board({onConversao}){
     const [items, setItems] = useState([]);
 
     const addBoardItem = () => {
@@ -20,7 +20,7 @@ export default function Board({id = 'null'}){
             
             <div className='board-items'  style={{ paddingTop: '1em' }}>
                {items.map(id => (
-                    <BoardItem key={id} id={id} onFunc={removeBoardItem} />
+                    <BoardItem key={id} id={id} onFunc={removeBoardItem} onConversao={onConversao} />
                 ))}
             </div>
         </div>

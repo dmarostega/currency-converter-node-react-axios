@@ -1,5 +1,5 @@
 
-const EXCHANGE_API_KEY = '154a81d8c4d2272fb0eb96b7569185d6';
+const EXCHANGE_API_KEY = 'dba0d36a0854d2100d4ab1667b9973f4';
 /**
  * Pode ser adquirida em:
  *      https://exchangerate.host/ 

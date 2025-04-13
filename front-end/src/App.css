@@ -118,21 +118,40 @@ input, select {
   padding: 0 10px;
 }
 
-
 .board-item-result {
   font-weight: 700;
   font-size: 1.3em;
 }
 
+.historic-item {
+  border: 1px solid rgb(17, 17, 20);
+  border-radius: 4px;
+  margin-bottom: .5em;
+  font-size: .7em;
+}
+
+.historic-item > div:first-child {
+  border-bottom: 1px  solid #424324;
+  text-align: left;
+}
+
+.historic-item > div:last-child {
+  display: inline-block;
+  text-align: center;
+}
+
+.historic-item > div:last-child span{
+  font-weight: 600;
+}
+
 button:hover {
   background-color: #020f1a;
 }
+
 button:active {
   background-color: #020d18;
   transform: none;       
 }
-
-
     
 @keyframes App-logo-spin {
   from {

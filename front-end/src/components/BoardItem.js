@@ -1,9 +1,9 @@
 import {useState, useEffect} from 'react';
 import getBackEndURL from '../config';
 import axios from 'axios';
-import LocalStorageCustom from '../helpers/LocalstorageCustom';
+import Historico from '../utils/Historico';
 
-export default function BoardItem({id, onFunc, onChange}) {
+export default function BoardItem({id, onFunc, onConversao}) {
     
     const [symbols, setSymbols] = useState([]);
     const [moedaDe, setMoedaDe] = useState('');
@@ -14,22 +14,18 @@ export default function BoardItem({id, onFunc, onChange}) {
     useEffect(() => { 
         
         const localSymbols = localStorage.getItem('currencySymbols');
-        // const localSymbols = LocalStorageCustom.get('currencySymbols');
 
-        console.log("localSymbols: ", typeof(localSymbols))
         if(localSymbols) {
-            console.log("Symbols has LOCALSTORAGE")
             setSymbols(JSON.parse(localSymbols));
         } else { 
             const url = getBackEndURL();
-            console.log("Front-end ", `${url}api-externa/buscar-symbols`)
+
             axios.get(`${url}api-externa/buscar-symbols`)
             .then(res => {
-                // console.log("DADOS RETORNADO: ", res.data, res.data.symbols.currencies)
-                setSymbols(res.data.symbols.currencies)
-                // LocalStorageCustom.set('currencySymbols', JSON.stringify(res.data.symbols.currencies), 1000 * 60 * 2)
-                localStorage.setItem('currencySymbols', JSON.stringify(res.data.symbols.currencies))
-                console.log('Buscando simbolos', localStorage.getItem('currencySymbols'))
+                if(res.data.symbols) {
+                    setSymbols(res.data.symbols.currencies)                
+                    localStorage.setItem('currencySymbols', JSON.stringify(res.data.symbols.currencies))                
+                }
             })
             .catch(err => {
                 console.error('Erro ao buscar simbolos:', err);
@@ -48,11 +44,23 @@ export default function BoardItem({id, onFunc, onChange}) {
             const res = await axios.get(`${url}api-externa/${moedaDe}/${moedaPara}/${valor}`)
 
             setResultado(res.data.rate.result);
-        } catch (error) {
-            
+            Historico.salvar(Date.now(),moedaDe,moedaPara, valor, res.data.rate.result)
+
+            if (onConversao) onConversao(); // notifica o Home
+
+        } catch (err) {
+            console.error(
+                { 
+                    error: "Erro ao buscar conversão.", 
+                    message: err.message,
+                    stack: err.stack 
+                })            
         }        
     }
 
+    if(!symbols) {
+        return (<p>Não foi possível carregar moedas</p>)
+    }
     return (
         <div id={id} className="board-item" >
             <div>

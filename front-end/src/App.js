@@ -10,7 +10,10 @@ function App() {
   return ( 
     <div className="App">      
       <header className="App-header">
-        <h1>Conversor de Moedas</h1>
+          <h1>Conversor de Moedas</h1>            
+          <div>
+            <div><button>X</button></div>
+          </div>
       </header>
       <div className="App-body">
         <Home />
