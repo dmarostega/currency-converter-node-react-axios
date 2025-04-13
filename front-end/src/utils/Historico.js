@@ -11,13 +11,14 @@ export default class Historico
     }
 
     static salvar = (data, moedaDe, moedaPara, valor, resultado) => {
-        this.itens.push({
+        this.itens = [{
             data,
             moedaDe,
             moedaPara,
             valor,
             resultado
-        })
+        },
+    ...this.itens]
 
         localStorage.setItem(this.chave, JSON.stringify(this.itens))
     }

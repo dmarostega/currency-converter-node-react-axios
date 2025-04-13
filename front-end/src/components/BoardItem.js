@@ -29,19 +29,19 @@ export default function BoardItem({id, onFunc, onConversao, onErro}) {
                     setSymbols(res.data.symbols.currencies)                
                     localStorage.setItem('currencySymbols', JSON.stringify(res.data.symbols.currencies))                
                 }else{
-                    let message = '';
+                    let messagem = '';
                     switch (res.data.symbols.error.type) {
                         case 'invalid_access_key':
-                            message = `Erro ao buscar os símbolos: chave de API inválida ou limite de requisições excedido.`
+                            messagem = `Erro ao buscar os símbolos: chave de API inválida ou limite de requisições excedido.`
                             break;
                         case 'usage_limit_reached':
-                            message = `Erro ao buscar os símbolos: limite de requisições da API foi atingido.`
+                            messagem = `Erro ao buscar os símbolos: limite de requisições da API foi atingido.`
                             break;                            
                         default:
-                            message = `Erro desconhecido ao buscar os símbolos.`
+                            messagem = `Erro desconhecido ao buscar os símbolos.`
                             break;
                     }
-                    onErro?.(`${message}`);
+                    onErro?.(`${messagem}`);
                 }
             })
             .catch(err => {
