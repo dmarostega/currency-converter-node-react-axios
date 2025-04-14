@@ -1,4 +1,4 @@
-Conversor de Moedas em Node.js, Reacts.js e Axios.
+Conversor de Moedas em Node.js, Reacts.js e Axios. 
 
 Obrigatório: possuir API KEY Válida no https://exchangerate.host; (Veja item 2)
 
